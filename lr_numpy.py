@@ -59,6 +59,11 @@ def gradient_descent(bmi_life_data, initial_m, initial_b, learning_rate, num_ite
 	return [m,b]
 
 
+def predict(b,m, x):
+
+	return m*x + b
+
+
 
 def lr_numpy():
 
@@ -79,8 +84,11 @@ def lr_numpy():
 
 	print("After running  {} iterations,  b = {}, m = {}, squared mean error = {}".format(num_iteration, b, m, compute_squared_mean_error(b, m, bmi_life_data)))
 	
-	print(m)
-	print(b)
+	predict_life_exp = predict(b, m , bmi_life_data[['BMI']].values)
+
+	plt.scatter(bmi_life_data[['BMI']][0:-20], bmi_life_data[['Life expectancy']][0:-20],  color='black')
+	plt.plot(bmi_life_data[['BMI']], predict_life_exp , color='blue', linewidth=3)
+	plt.show()
 
 
 if __name__ == "__main__":
